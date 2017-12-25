@@ -1,0 +1,9 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
+  <div>username: <input type="text" name="username" ngModel></div>
+  <div>mobilephone: <input type="text" name="mobilephone" ngModel></div>
+  <div ngModelGroup="passwordGroup">
+    <div>password: <input type="password" name="password" ngModel></div>
+    <div>reconfirm: <input type="password" name="passconfirm" ngModel></div>
+  </div>
+  <button type="submit">Register</button>
+</form>
