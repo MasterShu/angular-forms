@@ -1,9 +1,29 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
-  <div>username: <input type="text" name="username" ngModel></div>
-  <div>mobilephone: <input type="text" name="mobilephone" ngModel></div>
-  <div ngModelGroup="passwordGroup">
-    <div>password: <input type="password" name="password" ngModel></div>
-    <div>reconfirm: <input type="password" name="passconfirm" ngModel></div>
+<!-- novalidate 是说明不启动浏览器默认的验证, 以免影响使用 -->
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" novalidate>  
+  <div>username: <input (input)="onUsernameInput(myForm)" type="text" required name="username" minlength="6" ngModel></div>
+  <div [hidden]="usernameValid || usernameUntouched">
+    <div [hidden]="!myForm.form.hasError('required', 'username')">
+      username is required!
+    </div>
+    <div [hidden]="!myForm.form.hasError('minlength', 'username')">
+      username minlength is 6!
+    </div>
+  </div>
+
+  <div>mobilephone: <input type="text" mobile name="mobile" ngModel></div>
+  <div [hidden]="!myForm.form.hasError('mobile', 'mobile')">
+    mobilephone is not abled!
+  </div>
+  
+  <div ngModelGroup="passwordGroup" equal>
+    <div>password: <input type="password" minlength="6" name="password" ngModel></div>
+    <div [hidden]="!myForm.form.hasError('minlength', ['passwordGroup', 'password'])">
+      password minlength is 6!
+    </div>
+    <div>reconfirm: <input type="password" name="pconfirm" ngModel></div>
+    <div [hidden]="!myForm.form.hasError('equal', 'passwordGroup')">
+      {{ myForm.form.getError('equal', 'passwordGroup')?.content }}
+    </div>
   </div>
   <button type="submit">Register</button>
 </form>
