@@ -1,0 +1,34 @@
+<form action="" [formGroup]="formModel" (submit)="onSubmit()">
+  <div>username: <input [class.hasError]="formModel.get('username').invalid && formModel.get('username').touched" type="text" formControlName="username"></div>
+  <div [hidden]="formModel.get('username').valid || formModel.get('username').untouched">
+    <div [hidden]="!formModel.hasError('required', 'username')">
+      username is required!
+    </div>
+    <div [hidden]="!formModel.hasError('minlength', 'username')">
+      username minlength is 6!
+    </div>
+  </div>
+
+  <div>mobilephone: <input type="text" formControlName="mobile"></div>
+  <div [hidden]="formModel.get('mobile').valid || formModel.get('mobile').pristine">
+    <div [hidden]="!formModel.hasError('mobile', 'mobile')">
+      mobilephone is not abled!
+    </div>
+    <div [hidden]="!formModel.get('mobile').pending">
+      loading... in confirmation...
+    </div>
+  </div>
+
+  <div formGroupName="passwordGroup">
+    <div>password: <input type="password" formControlName="password"> </div>
+    <div [hidden]="!formModel.hasError('minlength', ['passwordGroup', 'password'])">
+      password minlength is 6!
+    </div>
+    <div>Retype password: <input type="password" formControlName="pconfirm"> </div>
+    <div [hidden]="!formModel.hasError('equal', 'passwordGroup')">
+      {{ formModel.getError('equal', 'passwordGroup')?.content }}
+    </div>
+  </div>
+  
+  <button type="submit" >Register</button>
+</form>

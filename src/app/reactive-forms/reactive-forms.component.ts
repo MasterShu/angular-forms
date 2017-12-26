@@ -9,8 +9,8 @@ import { FormControl, FormGroup, FormArray } from '@angular/forms';
 export class ReactiveFormsComponent implements OnInit {
 
   formModel = new FormGroup({
-  username: new FormControl('tom'),
-  dateRange: new FormGroup({
+    username: new FormControl('tom'),
+    dateRange: new FormGroup({
       from: new FormControl(),
       to: new FormControl()
     }),
